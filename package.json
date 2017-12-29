@@ -1,0 +1,17 @@
+{
+  "name": "LMS-API",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Limeishu/LMS-API.git",
+  "author": "Aries Cs <aries0d0f@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^3.2.0",
+    "koa-logger": "^3.1.0",
+    "koa-router": "^7.3.0",
+    "koa-static": "^4.0.2",
+    "mongoose": "^5.0.0-rc0",
+    "mongoose-unique-validator": "^1.0.6"
+  }
+}
