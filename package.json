@@ -6,6 +6,7 @@
   "author": "Aries Cs <aries0d0f@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@koa/cors": "2",
     "koa": "^2.4.1",
     "koa-bodyparser": "^3.2.0",
     "koa-json": "^2.0.2",
