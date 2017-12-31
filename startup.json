@@ -1,0 +1,7 @@
+{
+  "apps": [{
+    "name": "LMS-API",
+    "script": "./server/app.js",
+    "watch": true
+  }]
+}
