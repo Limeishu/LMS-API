@@ -10,12 +10,12 @@ const app               = new Koa()
 app.use(bodyParser())
 app.use(KoaJson())
 app.use(cors({
-  origin: ctx => {
-    return ctx.url === '/user' ? 'https://admin.limeishu.org.tw': '*'
-  },
-  allowMethods: ctx => {
-    return ctx.request.origin === 'https://admin.limeishu.org.tw' ? '*': ['GET']
-  },
+  origin: '*',
+  allowMethods: ['GET']
+},
+{
+  origin: 'https://admin.limeishu.org.tw',
+  allowMethods: ['GET', 'POST', 'DELETE', 'PUT']
 }))
 app.use(route.routes())
 app.listen(config.port)
