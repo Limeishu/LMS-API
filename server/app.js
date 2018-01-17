@@ -13,7 +13,9 @@ app.use(cors({
   origin: ctx => {
     return ctx.url === '/user' ? 'https://admin.limeishu.org.tw': '*'
   },
-  allowMethods: ['GET']
+  allowMethods: ctx => {
+    return ctx.request.origin === 'https://admin.limeishu.org.tw' ? '*': ['GET']
+  },
 }))
 app.use(route.routes())
 app.listen(config.port)
