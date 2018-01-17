@@ -19,7 +19,7 @@ news
       }
     }).exec()
   })
-  .post('/', async(ctx, next) => {
+  .post('/', async (ctx, next) => {
     try {
       const newNews = new News({
         title: ctx.request.body.title,
