@@ -5,12 +5,12 @@ const user              = new KoaRouter()
 
 user
   .post('/', async ctx => {
-    let account = new User({
+    let account = {
       user: ctx.request.body.username,
       pwd: ctx.request.body.password
-    })
+    }
     await User.findOne(account, (err, data) => {
-      if (err || !data) {
+      if (err) {
         ctx.body = {
           result: -1,
           err
@@ -24,12 +24,12 @@ user
     }).exec()
   })
   .put('/', async ctx => {
-    let account = new User({
+    let account = {
       user: ctx.request.body.username,
       pwd: ctx.request.body.password,
       permission: 2
-    })
-    await User.findOne(account, async(err, data) => {
+    }
+    await User.findOne(account, async (err, data) => {
       if (err) {
         ctx.body = {
           result: -1,
@@ -78,7 +78,7 @@ user
       }
     }).exec()
   })
-  .post('/new', async(ctx, next) => {
+  .post('/new', async (ctx, next) => {
     const {
       username,
       password
