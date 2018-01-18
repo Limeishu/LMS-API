@@ -10,7 +10,7 @@ user
       pwd: ctx.request.body.password
     }
     await User.findOne(account, (err, data) => {
-      if (err) {
+      if (err || !data) {
         ctx.body = {
           result: -1,
           err
