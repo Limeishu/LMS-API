@@ -55,13 +55,24 @@ const userSchema = new Schema({
   collection: 'User'
 })
 
+const docsSchema = new Schema({
+  type: {
+    type: String,
+    require: true
+  },
+  doc: Object
+}, {
+  collection: 'Docs'
+})
+
 postSchema.plugin(mongooseUV)
 userSchema.plugin(mongooseUV)
 
 const db = {
   Post: mongoose.model('Post', postSchema),
   News: mongoose.model('News', newsSchema),
-  User: mongoose.model('User', userSchema)
+  User: mongoose.model('User', userSchema),
+  Docs: mongoose.model('Docs', docsSchema)
 }
 
 mongoose.Promise = global.Promise
