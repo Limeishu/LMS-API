@@ -24,6 +24,7 @@ news
       const newNews = new News({
         title: ctx.request.body.title,
         content: ctx.request.body.content,
+        paragraph: ctx.request.body.paragraph,
         date: new Date(),
         meta: ctx.request.body.meta
       })
@@ -63,6 +64,7 @@ news
         _id: old._id,
         title: ctx.request.body.title ? ctx.request.body.title : old.title,
         content: ctx.request.body.content ? ctx.request.body.content : old.content,
+        paragraph: ctx.request.body.paragraph ? ctx.request.body.paragraph : old.paragraph,
         date: new Date(),
         meta: ctx.request.body.meta ? ctx.request.body.meta : old.meta
       })

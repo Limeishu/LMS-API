@@ -32,6 +32,10 @@ const newsSchema = new Schema({
     type: String,
     require: true
   },
+  paragraph: {
+    type: String,
+    require: true
+  },
   date: {
     type: String,
     require: true
