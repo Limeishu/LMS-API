@@ -4,24 +4,24 @@ const User              = require('../db').User
 const user              = new KoaRouter()
 
 user
-  .post('/', async ctx => {
+  .post('/', async (ctx, next) => {
     let account = {
       user: ctx.request.body.username,
       pwd: ctx.request.body.password
     }
-    await User.findOne(account, (err, data) => {
-      if (err || !data) {
-        ctx.body = {
-          result: -1,
-          err
-        }
-      } else {
-        ctx.body = {
-          result: 0,
-          uid: data._id
-        }
+    try {
+      const userData = await User.findOne(account)
+      userData.meta ? userData.meta.lastIP = ctx.request.ip : userData.meta = { lastIP: ctx.request.ip }
+      if (!userData) {
+        ctx.body = { result: -1 }
+        return next()
       }
-    }).exec()
+      await userData.update()
+      ctx.body = { result: 0, userData }
+    } catch (e) {
+      console.log(e)
+      next(e)
+    }
   })
   .put('/:uid', async (ctx, next) => {
     let account = {
