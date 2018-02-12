@@ -48,11 +48,16 @@ const newsSchema = new Schema({
 const userSchema = new Schema({
   user: {
     type: String,
+    lowercase: true,
     require: true
   },
   pwd: {
     type: String,
     require: true
+  },
+  permission: {
+    type: Number,
+    required: true,
   },
   meta: Object
 }, {
