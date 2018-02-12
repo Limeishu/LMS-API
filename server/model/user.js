@@ -43,7 +43,6 @@ user
         _id: old._id,
         user: ctx.request.body.username ? ctx.request.body.username : old.user,
         pwd: ctx.request.body.password ? ctx.request.body.password : old.pwd,
-        permission: ctx.request.body.permission ? ctx.request.body.permission : old.permission,
         meta: ctx.request.body.meta ? ctx.request.body.meta : old.meta
       })
       await old.update(newUser)
@@ -88,7 +87,7 @@ user
       const account = new User({
         user: username,
         pwd: password,
-        permission: 2
+        permission: -1
       })
       await account.save()
       ctx.body = {
