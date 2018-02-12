@@ -11,13 +11,18 @@ user
     }
     try {
       const userData = await User.findOne(account)
-      userData.meta ? userData.meta.lastIP = ctx.request.ip : userData.meta = { lastIP: ctx.request.ip }
       if (!userData) {
         ctx.body = { result: -1 }
         return next()
       }
-      await userData.update()
-      ctx.body = { result: 0, userData }
+      ctx.body = {
+        result: 0,
+        uid: userData._id,
+        permission: userData.permission,
+        meta: userData.meta
+      }
+      userData.meta ? userData.meta.lastIP = ctx.request.ip : userData.meta = { lastIP: ctx.request.ip }
+      await userData.update(userData)
     } catch (e) {
       console.log(e)
       next(e)
