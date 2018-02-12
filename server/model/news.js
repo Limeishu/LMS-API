@@ -36,9 +36,9 @@ news
       next(e)
     }
   })
-  .get('/:pid', async ctx => {
+  .get('/:nid', async ctx => {
     await News.findOne({
-      _id: ctx.params.pid
+      _id: ctx.params.nid
     }, (err, data) => {
       if (err || !data) {
         ctx.body = {
@@ -53,9 +53,9 @@ news
       }
     }).exec()
   })
-  .put('/:pid', async (ctx, next) => {
+  .put('/:nid', async (ctx, next) => {
     try {
-      const old = await News.findOne({ _id: ctx.params.pid })
+      const old = await News.findOne({ _id: ctx.params.nid })
       if (!old) {
         ctx.body = { result: -1 }
         return next()
@@ -75,9 +75,9 @@ news
       next(e)
     }
   })
-  .delete('/:pid', async ctx => {
+  .delete('/:nid', async ctx => {
     await News.remove({
-      _id: ctx.params.pid
+      _id: ctx.params.nid
     }, (err) => {
       if (err) {
         ctx.body = {
