@@ -9,6 +9,7 @@ const app               = new Koa()
 
 app.use(bodyParser())
 app.use(KoaJson())
+app.proxy = true
 app.use(cors({
   origin: '*',
   allowMethods: ['GET']
