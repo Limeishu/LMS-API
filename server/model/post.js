@@ -19,7 +19,7 @@ post
       }
     }).exec()
   })
-  .post('/', async(ctx, next) => {
+  .post('/', async (ctx, next) => {
     try {
       const newPost = new Post({
         title: ctx.request.body.title,
