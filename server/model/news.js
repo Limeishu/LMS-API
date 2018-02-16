@@ -36,22 +36,22 @@ news
       next(e)
     }
   })
-  .get('/:nid', async ctx => {
-    await News.findOne({
-      _id: ctx.params.nid
-    }, (err, data) => {
-      if (err || !data) {
-        ctx.body = {
-          result: -1,
-          err
-        }
-      } else {
-        ctx.body = {
-          result: 0,
-          data
-        }
+  .get('/:nid', async (ctx, next) => {
+    try {
+      const data = await News.findOne({ _id: ctx.params.nid })
+      if (!data) {
+        ctx.body = { result: -1 }
+        return next()
       }
-    }).exec()
+      ctx.body = { result: 0, data }
+    } catch (err) {
+      ctx.body = {
+        result: -1,
+        err
+      }
+      console.log(e)
+      next(e)
+    }
   })
   .put('/:nid', async (ctx, next) => {
     try {
