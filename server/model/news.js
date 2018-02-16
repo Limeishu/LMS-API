@@ -65,7 +65,7 @@ news
         title: ctx.request.body.title ? ctx.request.body.title : old.title,
         content: ctx.request.body.content ? ctx.request.body.content : old.content,
         paragraph: ctx.request.body.paragraph ? ctx.request.body.paragraph : old.paragraph,
-        date: new Date(),
+        date: old.date,
         meta: ctx.request.body.meta ? ctx.request.body.meta : old.meta
       })
       await old.update(newNews)
