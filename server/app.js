@@ -21,7 +21,14 @@ const options = {
 app.use(bodyParser())
 app.use(KoaJson())
 app.proxy = true
-app.use(cors())
+app.use(cors({
+    origin: 'https://admin.limeishu.org.tw',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH'
+  }))
+app.use(cors({
+    origin: '*',
+    allowMethods: 'GET'
+  }))
 app.use(route.routes())
 app.use(uploader(options))
 app.use(require('koa-static')(path.join(__dirname, '/../public/')))
