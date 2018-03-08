@@ -5,7 +5,8 @@ const news              = new KoaRouter()
 
 news
   .get('/', async ctx => {
-    await News.find({}, (err, data) => {
+    let condition = ctx.get('Origin') === 'https://admin.limeishu.org.tw' ? {} : { permission: 0 }
+    await News.find(condition, (err, data) => {
       if (err || !data) {
         ctx.body = {
           result: -1,
@@ -26,6 +27,7 @@ news
         content: ctx.request.body.content,
         paragraph: ctx.request.body.paragraph,
         date: new Date(),
+        permission: ctx.request.body.permission,
         meta: ctx.request.body.meta
       })
       await newNews.save()
@@ -65,7 +67,8 @@ news
         title: ctx.request.body.title ? ctx.request.body.title : old.title,
         content: ctx.request.body.content ? ctx.request.body.content : old.content,
         paragraph: ctx.request.body.paragraph ? ctx.request.body.paragraph : old.paragraph,
-        date: old.date,
+        date: ctx.request.body.date ? ctx.request.body.date : old.date,
+        permission: ctx.request.body.permission,
         meta: ctx.request.body.meta ? ctx.request.body.meta : old.meta
       })
       await old.update(newNews)

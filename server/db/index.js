@@ -40,6 +40,10 @@ const newsSchema = new Schema({
     type: String,
     require: true
   },
+  permission: {
+    type: Number,
+    require: true
+  },
   meta: Object
 }, {
   collection: 'News'
