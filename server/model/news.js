@@ -26,7 +26,7 @@ news
         title: ctx.request.body.title,
         content: ctx.request.body.content,
         paragraph: ctx.request.body.paragraph,
-        date: new Date(),
+        date: ctx.request.body.date,
         permission: ctx.request.body.permission,
         meta: ctx.request.body.meta
       })
