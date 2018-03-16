@@ -1,5 +1,6 @@
 const KoaRouter         = require('koa-router')
 const News              = require('../db').News
+const User              = require('../db').User
 
 const news              = new KoaRouter()
 
@@ -22,6 +23,11 @@ news
   })
   .post('/', async (ctx, next) => {
     try {
+      const auth = await User.findOne({ _id: ctx.request.body.uid })
+      if (!auth || (auth.permission === -1) || (ctx.request.ip !== auth.meta.lastIP)) {
+        ctx.body = { result: -1 }
+        return next()
+      }
       const newNews = new News({
         title: ctx.request.body.title,
         content: ctx.request.body.content,
@@ -57,6 +63,11 @@ news
   })
   .put('/:nid', async (ctx, next) => {
     try {
+      const auth = await User.findOne({ _id: ctx.request.body.uid })
+      if (!auth || (auth.permission === -1) || (ctx.request.ip !== auth.meta.lastIP)) {
+        ctx.body = { result: -1 }
+        return next()
+      }
       const old = await News.findOne({ _id: ctx.params.nid })
       if (!old) {
         ctx.body = { result: -1 }
@@ -78,21 +89,19 @@ news
       next(e)
     }
   })
-  .delete('/:nid', async ctx => {
-    await News.remove({
-      _id: ctx.params.nid
-    }, (err) => {
-      if (err) {
-        ctx.body = {
-          result: -1,
-          err
-        }
-      } else {
-        ctx.body = {
-          result: 0
-        }
+  .delete('/:nid', async (ctx, next) => {
+    try {
+      const auth = await User.findOne({ _id: ctx.query.uid })
+      if (!auth || (auth.permission === -1) || (ctx.request.ip !== auth.meta.lastIP)) {
+        ctx.body = { result: -1 }
+        return next()
       }
-    }).exec()
+      const success = await News.remove({ _id: ctx.params.nid })
+      if (success) ctx.body = { result: 0 }
+    } catch (err) {
+      console.log(e)
+      next(e)
+    }
   })
 
 module.exports = news
