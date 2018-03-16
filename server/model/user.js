@@ -11,7 +11,7 @@ user
     }
     try {
       const userData = await User.findOne(account)
-      if (!userData) {
+      if (!userData || userData.permission === -1) {
         ctx.body = { result: -1 }
         return next()
       }
@@ -35,7 +35,7 @@ user
     }
     try {
       const old = await User.findOne(account)
-      if (!old) {
+      if (!old || old.permission === -1) {
         ctx.body = { result: -1 }
         return next()
       }
