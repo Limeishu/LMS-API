@@ -31,7 +31,7 @@ user
   .put('/:uid', async (ctx, next) => {
     let account = {
       _id: ctx.params.uid,
-      pwd: ctx.request.body.password
+      pwd: ctx.request.body.old_password
     }
     try {
       const old = await User.findOne(account)
