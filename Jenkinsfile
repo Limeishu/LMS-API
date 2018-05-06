@@ -11,6 +11,7 @@ node {
     sh "rm -rf .git"
 		sh "ls -lah"
 		sh "yarn"
+		sh "yarn run build"
 		echo 'Packing files.'
 		sh "zip -r package.zip ."
 	}
