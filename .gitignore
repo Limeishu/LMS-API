@@ -1,6 +1,7 @@
 # configuration
 config.json
 
+server
 public
 
 # Logs
