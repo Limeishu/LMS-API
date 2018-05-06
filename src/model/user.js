@@ -1,5 +1,5 @@
-const KoaRouter         = require('koa-router')
-const User              = require('../db').User
+import KoaRouter        from 'koa-router'
+import { User }         from '../db'
 
 const user              = new KoaRouter()
 
@@ -100,4 +100,4 @@ user
     }
     return next()
   })
-module.exports = user
+export default user

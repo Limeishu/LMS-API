@@ -1,5 +1,5 @@
-const KoaRouter         = require('koa-router')
-const Docs              = require('../db').Docs
+import KoaRouter        from 'koa-router'
+import { Docs }         from '../db'
 
 const docs              = new KoaRouter()
 
@@ -22,4 +22,4 @@ docs
     }).exec()
   })
 
-module.exports = docs
+export default docs

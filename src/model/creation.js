@@ -1,7 +1,7 @@
-const KoaRouter         = require('koa-router')
-const Creation              = require('../db').Creation
+import KoaRouter        from 'koa-router'
+import { Creation }     from '../db'
 
-const creation              = new KoaRouter()
+const creation          = new KoaRouter()
 
 creation
   .get('/', async ctx => {
@@ -94,4 +94,4 @@ creation
     }).exec()
   })
 
-module.exports = creation
+export default creation

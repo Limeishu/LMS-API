@@ -1,5 +1,6 @@
-const KoaRouter         = require('koa-router')
-const model             = require('../model')
+import KoaRouter        from 'koa-router'
+import model            from '../model'
+
 const route             = new KoaRouter()
 
 route.use('/creation', model.creation.routes(), model.creation.allowedMethods())
@@ -9,4 +10,4 @@ route.use('/news', model.news.routes(), model.news.allowedMethods())
 route.use('/docs', model.docs.routes(), model.docs.allowedMethods())
 route.use('/',     model.test.routes(), model.test.allowedMethods())
 
-module.exports = route
+export default route

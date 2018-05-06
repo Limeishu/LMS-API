@@ -1,8 +1,8 @@
-const news            = require('./news')
-const post            = require('./post')
-const user            = require('./user')
-const test            = require('./test')
-const docs            = require('./docs')
-const creation        = require('./creation')
+import news             from './news'
+import post             from './post'
+import user             from './user'
+import test             from './test'
+import docs             from './docs'
+import creation         from './creation'
 
-module.exports = { news, post, user, test, docs, creation }
+export default { news, post, user, test, docs, creation }

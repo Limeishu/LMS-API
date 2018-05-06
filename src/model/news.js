@@ -1,6 +1,6 @@
-const KoaRouter         = require('koa-router')
-const News              = require('../db').News
-const User              = require('../db').User
+import KoaRouter        from 'koa-router'
+import { News }         from '../db'
+import { User }         from '../db'
 
 const news              = new KoaRouter()
 
@@ -104,4 +104,4 @@ news
     }
   })
 
-module.exports = news
+export default news

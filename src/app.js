@@ -1,12 +1,14 @@
-const Koa               = require('koa')
-const KoaJson           = require('koa-json')
-const bodyParser        = require('koa-bodyparser')
-const cors              = require('@koa/cors')
-const path              = require('path')
-const uploader          = require('koa2-file-upload')
+import Koa              from 'koa'
+import KoaJson          from 'koa-json'
+import bodyParser       from 'koa-bodyparser'
+import cors             from '@koa/cors'
+import path             from 'path'
+import uploader         from 'koa2-file-upload'
+import koaStatic        from 'koa-static'
 
-const route             = require('./route')
-const config            = require('../config.json')
+import route            from './route'
+import config           from '../config.json'
+
 const app               = new Koa()
 
 const options = {
@@ -31,5 +33,5 @@ app.use(cors({
   }))
 app.use(route.routes())
 app.use(uploader(options))
-app.use(require('koa-static')(path.join(__dirname, '/../public/')))
+app.use(koaStatic(path.join(__dirname, '/../public/')))
 app.listen(config.port)

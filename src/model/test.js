@@ -1,5 +1,8 @@
-const KoaRouter         = require('koa-router')
-const { name, version } = require('../../package.json')
+import KoaRouter        from 'koa-router'
+import {
+  name,
+  version
+}                       from '../../package.json'
 const test              = new KoaRouter()
 
 test
@@ -10,4 +13,4 @@ test
     }
   })
 
-module.exports = test
+export default test

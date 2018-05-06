@@ -1,5 +1,5 @@
-const KoaRouter         = require('koa-router')
-const Post              = require('../db').Post
+import KoaRouter        from 'koa-router'
+import { Post }         from '../db'
 
 const post              = new KoaRouter()
 
@@ -90,4 +90,4 @@ post
     }).exec()
   })
 
-module.exports = post
+export default post
