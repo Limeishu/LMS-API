@@ -1,9 +1,9 @@
-import mongoose         from 'mongoose'
-import mongooseUV       from 'mongoose-unique-validator'
+const mongoose              = require('mongoose')
+const mongooseUV            = require('mongoose-unique-validator')
 
-import { db as _db }    from '../../config.json'
+const config                = require('../../config.json')
 
-const Schema            = mongoose.Schema
+const Schema                = mongoose.Schema
 
 const postSchema = new Schema({
   title: {
@@ -118,9 +118,9 @@ const db = {
 
 mongoose.Promise = global.Promise
 mongoose.connect(
-  _db.uri, {
+  config.db.uri, {
     useMongoClient: true
   }
 )
 
-export default db
+module.exports = db
