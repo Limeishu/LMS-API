@@ -3,6 +3,7 @@ import model            from '../model'
 
 const route             = new KoaRouter()
 
+route.use('/firewallLog', model.firewallLog.routes(), model.firewallLog.allowedMethods())
 route.use('/creation', model.creation.routes(), model.creation.allowedMethods())
 route.use('/user', model.user.routes(), model.user.allowedMethods())
 route.use('/post', model.post.routes(), model.post.allowedMethods())

@@ -23,6 +23,25 @@ const postSchema = new Schema({
   collection: 'Post'
 })
 
+const firewallLogSchema = new Schema({
+  timestamp: {
+    type: String,
+    required: true
+  },
+  mac: {
+    type: String,
+    required: true
+  },
+  ip: {
+    type: String,
+    required: true
+  },
+  proto: {
+    type: String,
+    required: true
+  }
+})
+
 const newsSchema = new Schema({
   title: {
     type: String,
@@ -107,13 +126,15 @@ const creationSchema = new Schema({
 postSchema.plugin(mongooseUV)
 userSchema.plugin(mongooseUV)
 creationSchema.plugin(mongooseUV)
+firewallLogSchema
 
 const db = {
   Post: mongoose.model('Post', postSchema),
   News: mongoose.model('News', newsSchema),
   User: mongoose.model('User', userSchema),
   Docs: mongoose.model('Docs', docsSchema),
-  Creation: mongoose.model('Creation', creationSchema)
+  Creation: mongoose.model('Creation', creationSchema),
+  FirewallLog: mongoose.model('FirewallLog', firewallLogSchema)
 }
 
 mongoose.Promise = global.Promise
