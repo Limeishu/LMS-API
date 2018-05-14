@@ -1,6 +1,7 @@
 import KoaRouter        from 'koa-router'
 import { News }         from '../db'
 import { User }         from '../db'
+import Session          from '../modules/session'
 
 const news              = new KoaRouter()
 
@@ -24,7 +25,7 @@ news
   .post('/', async (ctx, next) => {
     try {
       const auth = await User.findOne({ _id: ctx.request.body.uid })
-      if (!auth || (auth.permission === -1) || (ctx.request.ip !== auth.meta.lastIP)) {
+      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.request.body.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
         ctx.body = { result: -1 }
         return next()
       }
@@ -64,7 +65,7 @@ news
   .put('/:nid', async (ctx, next) => {
     try {
       const auth = await User.findOne({ _id: ctx.request.body.uid })
-      if (!auth || (auth.permission === -1) || (ctx.request.ip !== auth.meta.lastIP)) {
+      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.request.body.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
         ctx.body = { result: -1 }
         return next()
       }
@@ -92,7 +93,7 @@ news
   .delete('/:nid', async (ctx, next) => {
     try {
       const auth = await User.findOne({ _id: ctx.query.uid })
-      if (!auth || (auth.permission === -1) || (ctx.request.ip !== auth.meta.lastIP)) {
+      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.query.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
         ctx.body = { result: -1 }
         return next()
       }

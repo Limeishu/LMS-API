@@ -82,7 +82,7 @@ const userSchema = new Schema({
     type: Number,
     required: true,
   },
-  section: String,
+  session: String,
   meta: Object
 }, {
   collection: 'User'

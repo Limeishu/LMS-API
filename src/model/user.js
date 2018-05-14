@@ -1,5 +1,6 @@
 import KoaRouter        from 'koa-router'
 import { User }         from '../db'
+import Session          from '../modules/session'
 
 const user              = new KoaRouter()
 
@@ -22,6 +23,7 @@ user
         meta: userData.meta
       }
       userData.meta ? userData.meta.lastIP = ctx.request.ip : userData.meta = { lastIP: ctx.request.ip }
+      userData.session = new Session(userData).make
       await userData.update(userData)
     } catch (e) {
       console.log(e)
