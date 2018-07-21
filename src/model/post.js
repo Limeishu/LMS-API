@@ -1,11 +1,14 @@
 import KoaRouter        from 'koa-router'
 import { Post }         from '../db'
+import { User }         from '../db'
+import Session          from '../modules/session'
 
-const post              = new KoaRouter()
+const nost              = new KoaRouter()
 
-post
+nost
   .get('/', async ctx => {
-    await Post.find({}, (err, data) => {
+    let condition = ctx.get('Origin') === 'https://admin.limeishu.org.tw' ? {} : { permission: 0 }
+    await Post.find(condition, (err, data) => {
       if (err || !data) {
         ctx.body = {
           result: -1,
@@ -21,10 +24,17 @@ post
   })
   .post('/', async (ctx, next) => {
     try {
+      const auth = await User.findOne({ _id: ctx.request.body.uid })
+      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.request.body.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
+        ctx.body = { result: -1 }
+        return next()
+      }
       const newPost = new Post({
         title: ctx.request.body.title,
         content: ctx.request.body.content,
-        date: new Date(),
+        paragraph: ctx.request.body.paragraph,
+        date: ctx.request.body.date,
+        permission: ctx.request.body.permission,
         meta: ctx.request.body.meta
       })
       await newPost.save()
@@ -35,25 +45,30 @@ post
       next(e)
     }
   })
-  .get('/:pid', async ctx => {
-    await Post.findOne({
-      _id: ctx.params.pid
-    }, (err, data) => {
-      if (err || !data) {
-        ctx.body = {
-          result: -1,
-          err
-        }
-      } else {
-        ctx.body = {
-          result: 0,
-          data
-        }
+  .get('/:pid', async (ctx, next) => {
+    try {
+      const data = await Post.findOne({ _id: ctx.params.pid })
+      if (!data) {
+        ctx.body = { result: -1 }
+        return next()
       }
-    }).exec()
+      ctx.body = { result: 0, data }
+    } catch (err) {
+      ctx.body = {
+        result: -1,
+        err
+      }
+      console.log(e)
+      next(e)
+    }
   })
   .put('/:pid', async (ctx, next) => {
     try {
+      const auth = await User.findOne({ _id: ctx.request.body.uid })
+      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.request.body.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
+        ctx.body = { result: -1 }
+        return next()
+      }
       const old = await Post.findOne({ _id: ctx.params.pid })
       if (!old) {
         ctx.body = { result: -1 }
@@ -63,7 +78,9 @@ post
         _id: old._id,
         title: ctx.request.body.title ? ctx.request.body.title : old.title,
         content: ctx.request.body.content ? ctx.request.body.content : old.content,
-        date: new Date(),
+        paragraph: ctx.request.body.paragraph ? ctx.request.body.paragraph : old.paragraph,
+        date: ctx.request.body.date ? ctx.request.body.date : old.date,
+        permission: ctx.request.body.permission,
         meta: ctx.request.body.meta ? ctx.request.body.meta : old.meta
       })
       await old.update(newPost)
@@ -73,21 +90,19 @@ post
       next(e)
     }
   })
-  .delete('/:pid', async ctx => {
-    await Post.remove({
-      _id: ctx.params.pid
-    }, (err) => {
-      if (err) {
-        ctx.body = {
-          result: -1,
-          err
-        }
-      } else {
-        ctx.body = {
-          result: 0
-        }
+  .delete('/:pid', async (ctx, next) => {
+    try {
+      const auth = await User.findOne({ _id: ctx.query.uid })
+      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.query.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
+        ctx.body = { result: -1 }
+        return next()
       }
-    }).exec()
+      const success = await Post.remove({ _id: ctx.params.pid })
+      if (success) ctx.body = { result: 0 }
+    } catch (err) {
+      console.log(e)
+      next(e)
+    }
   })
 
-export default post
+export default nost

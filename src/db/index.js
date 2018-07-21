@@ -14,8 +14,16 @@ const postSchema = new Schema({
     type: String,
     require: true
   },
+  paragraph: {
+    type: String,
+    require: true
+  },
   date: {
     type: String,
+    require: true
+  },
+  permission: {
+    type: Number,
     require: true
   },
   meta: Object
