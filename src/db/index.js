@@ -147,10 +147,6 @@ const db = {
 }
 
 mongoose.Promise = global.Promise
-mongoose.connect(
-  config.db.uri, {
-    useMongoClient: true
-  }
-)
+mongoose.connect(config.db.uri)
 
 module.exports = db
