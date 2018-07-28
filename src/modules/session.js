@@ -1,5 +1,4 @@
 import md5              from 'js-md5'
-import { secrect }      from '../../config.json'
 
 class Session {
   constructor(data) {
