@@ -13,9 +13,9 @@ class fileUtil {
   }
   uploadFile () {
     try {
-      const fileName = path.join(this.storageLoc, this.fileNamePathGenerator)
+      const fileName = this.fileNamePathGenerator
       const readStream =  fs.createReadStream(this.file.path)
-      const writeStream = fs.createWriteStream(path.resolve(fileName))
+      const writeStream = fs.createWriteStream(path.resolve(this.storageLoc, fileName))
       readStream.pipe(writeStream)
       return fileName
     } catch (err) {

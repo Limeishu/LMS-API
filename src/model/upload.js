@@ -16,17 +16,17 @@ upload
   }))
   .post('/', async (ctx, next) => {
     try {
-      const file = ctx.request.files.file
+      const file = ctx.request.files.image
       const storagePath = config.serverPath
-      const filePath = new fileUtil(file, storagePath).uploadFile()
+      const fileName = new fileUtil(file, storagePath).uploadFile()
       const newImage = new Image({
         fileName: file.name,
-        path: `https://api.limeishu.org.tw/${filePath}`,
+        path: `https://api.limeishu.org.tw/images/${fileName}`,
         date: new Date(),
         meta: ctx.request.body.meta || {}
       })
       await newImage.save()
-      ctx.body = `{"${file.name}":"/${filePath}"}`
+      ctx.body = `{"${file.name}":"/images/${fileName}"}`
     } catch (err) {
       next(err)
     }
