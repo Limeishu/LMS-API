@@ -1,7 +1,6 @@
 import Koa              from 'koa'
 import KoaJson          from 'koa-json'
 import bodyParser       from 'koa-bodyparser'
-import KoaBody          from 'koa-body'
 import cors             from '@koa/cors'
 import path             from 'path'
 import koaStatic        from 'koa-static'
@@ -12,12 +11,6 @@ import config           from '../config.json'
 const app               = new Koa()
 
 app.use(bodyParser())
-app.use(KoaBody({
-  multipart: true,
-  formidable: {
-    maxFileSize: 20 * 1024 * 1024
-  }
-}))
 app.use(KoaJson())
 app.proxy = true
 app.use(cors({
