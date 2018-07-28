@@ -1,6 +1,5 @@
 import path             from 'path'
 import fs               from 'fs'
-import md5              from 'js-md5'
 
 class fileUtil {
   constructor (file, storageLoc) {
