@@ -12,6 +12,13 @@ upload
       const file = ctx.request.files.file
       const storagePath = config.serverPath
       const filePath = new fileUtil(file, storagePath).uploadFile()
+      const newImage = new Image({
+        fileName: file.name,
+        path: `https://api.limeishu.org.tw/${filePath}`,
+        date: new Date(),
+        meta: ctx.request.body.meta || {}
+      })
+      await newImage.save()
       ctx.body = `{"${file.name}":"/${filePath}"}`
     } catch (err) {
       next(err)
