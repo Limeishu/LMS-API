@@ -106,6 +106,22 @@ const docsSchema = new Schema({
   collection: 'Docs'
 })
 
+const imageSchema = new Schema({
+  fileName: {
+    type: String,
+    require: true
+  },
+  path: {
+    type: String,
+    require: true
+  },
+  date: {
+    type: Date,
+    required: true
+  },
+  meta: Object
+})
+
 const creationSchema = new Schema({
   name: {
     type: String,
@@ -135,13 +151,13 @@ const creationSchema = new Schema({
 postSchema.plugin(mongooseUV)
 userSchema.plugin(mongooseUV)
 creationSchema.plugin(mongooseUV)
-firewallLogSchema
 
 const db = {
   Post: mongoose.model('Post', postSchema),
   News: mongoose.model('News', newsSchema),
   User: mongoose.model('User', userSchema),
   Docs: mongoose.model('Docs', docsSchema),
+  Image: mongoose.model('Image', imageSchema),
   Creation: mongoose.model('Creation', creationSchema),
   FirewallLog: mongoose.model('FirewallLog', firewallLogSchema)
 }
