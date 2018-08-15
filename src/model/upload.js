@@ -12,7 +12,7 @@ upload
   .use(KoaBody({
     multipart: true,
     formidable: {
-      maxFileSize: 20 * 1024 * 1024
+      maxFileSize: 2000 * 1024 * 1024
     }
   }))
   .post('/', async (ctx, next) => {
