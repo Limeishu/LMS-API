@@ -2,6 +2,8 @@
   "apps": [{
     "name": "LMS-API",
     "script": "./server/app.js",
+    "instances" : "max",
+    "exec_mode" : "cluster",
     "watch": true
   }]
 }
