@@ -93,7 +93,7 @@ news
   .delete('/:nid', async (ctx, next) => {
     try {
       const auth = await User.findOne({ _id: ctx.query.uid })
-      if (!auth || (auth.permission === -1) || (new Session({_id: ctx.query.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
+      if (!auth || (auth.permission !== 1) || (new Session({_id: ctx.query.uid, meta: {lastIP: ctx.request.ip}}).make !== auth.session)) {
         ctx.body = { result: -1 }
         return next()
       }
