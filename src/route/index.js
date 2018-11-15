@@ -4,6 +4,7 @@ import model            from '../model'
 const route             = new KoaRouter()
 
 route.use('/firewallLog', model.firewallLog.routes(), model.firewallLog.allowedMethods())
+route.use('/diskUsage', model.diskUsage.routes(), model.diskUsage.allowedMethods())
 route.use('/creation', model.creation.routes(), model.creation.allowedMethods())
 route.use('/upload', model.upload.routes(), model.upload.allowedMethods())
 route.use('/image', model.image.routes(), model.image.allowedMethods())

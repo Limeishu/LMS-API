@@ -148,6 +148,15 @@ const creationSchema = new Schema({
   collection: 'Creation'
 })
 
+const diskUsageSchema = new Schema({
+  date: {
+    type: String,
+    require: true
+  },
+  free: Number,
+  size: Number
+})
+
 postSchema.plugin(mongooseUV)
 userSchema.plugin(mongooseUV)
 creationSchema.plugin(mongooseUV)
@@ -159,6 +168,7 @@ const db = {
   Docs: mongoose.model('Docs', docsSchema),
   Image: mongoose.model('Image', imageSchema),
   Creation: mongoose.model('Creation', creationSchema),
+  DiskUsage: mongoose.model('DiskUsage', diskUsageSchema),
   FirewallLog: mongoose.model('FirewallLog', firewallLogSchema)
 }
 
