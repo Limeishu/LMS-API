@@ -6,7 +6,7 @@ class Session {
     this.lastIP = data.meta.lastIP
   }
   get make() {
-    return md5(`${this.uid}${parseInt(this.lastIP.split(/\.|:+/).join(''), 10) + (new Date() - (new Date().getTime() % 3600000))}`)
+    return md5(`${this.uid}${parseInt(this.lastIP.split(/\.|:+/).join(''), 10) + (new Date() - (new Date().getTime() % 86400000))}`)
   }
 }
 
