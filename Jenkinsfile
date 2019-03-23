@@ -18,12 +18,12 @@ node {
 
   stage('Push to Remote Server'){
 		echo 'Connecting to the server.'
-		sh "scp -r -P 2047 $WORKSPACE/package.zip www@ssh.limeishu.org.tw:/home/www/webserver/v2/API"
+		sh "scp -r -P 2047 $WORKSPACE/package.zip www@srv1.limeishu.org.tw:/home/www/webserver/v2/API"
 	}
 
 	stage('Active Service'){
     echo 'Connecting to the server.'
-    sh "ssh www@ssh.limeishu.org.tw -p 2047 '\
+    sh "ssh www@srv1.limeishu.org.tw -p 2047 '\
           cd /home/www/webserver/v2/API; \
           unzip -o package.zip; \
           ls -lah; \
